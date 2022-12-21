@@ -23,7 +23,7 @@ app.post('/checkout', async (req, res) => {
         line_items: lineItems,
         mode: 'payment',
         success_url: `http://localhost:3000/` || 'https://auth-ec-site.vercel.app/',
-        cancel_url: `http://localhost:3000/product` || 'https://auth-ec-site.vercel.app/product',
+        cancel_url: `http://localhost:3000/` || 'https://auth-ec-site.vercel.app/',
 
     })
     res.send(JSON.stringify({
