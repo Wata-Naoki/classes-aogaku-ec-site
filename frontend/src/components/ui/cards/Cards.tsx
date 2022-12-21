@@ -1,31 +1,21 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { cartState, searchFormState } from "../../../atom/atom";
-import { usePagination } from "../../../hooks/usePagination";
-import { products } from "../../../productData/productData";
-import { Card } from "../card/Card";
-import { Pagination } from "../pagination/Pagination";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { cartState, searchFormState } from '../../../atom/atom';
+import { usePagination } from '../../../hooks/usePagination';
+import { products } from '../../../productData/productData';
+import { Card } from '../card/Card';
+import { Pagination } from '../pagination/Pagination';
 
-export const Cards = () => {
+export const Cards = ({ products }: any) => {
   const [cartItems, setCartItems] =
-    useRecoilState<
-      { id: string; title: string; price: number; image: string }[]
-    >(cartState);
+    useRecoilState<{ id: string; title: string; price: number; image: string }[]>(cartState);
   const searchState = useRecoilValue(searchFormState);
 
-  const filterData = products.filter((item) => {
-    return searchState === "" ? item : item.title.includes(searchState);
+  const filterData = products.data.filter((item: any) => {
+    return searchState === '' ? item : item.title.includes(searchState);
   });
-  const {
-    take,
-    skip,
-    totalPage,
-    currentPage,
-    goPage,
-    goPrev,
-    goNext,
-    hasNextPage,
-    hasPrevPage,
-  } = usePagination({ totalCount: filterData?.length || 0 });
+  const { take, skip, totalPage, currentPage, goPage, goPrev, goNext, hasNextPage, hasPrevPage } = usePagination({
+    totalCount: filterData?.length || 0,
+  });
 
   const handleCartItems = (product: any) => {
     // cartItemsにproductがなければ追加
@@ -46,7 +36,7 @@ export const Cards = () => {
     <>
       <div className="flex flex-col items-center justify-center gap-16 py-16">
         <div className="flex flex-wrap lg:w-[1200px]  gap-16 px-10 place-content-center">
-          {filterData?.slice(skip, skip + take).map((item, index) => (
+          {filterData?.slice(skip, skip + take).map((item: any, index: number) => (
             <div key={item.id}>
               <Card
                 onCartClick={() => handleCartItems(item)}

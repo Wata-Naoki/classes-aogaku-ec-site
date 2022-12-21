@@ -1,29 +1,29 @@
-import React, { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Dialog, Transition } from "@headlessui/react";
-import { useRecoilState } from "recoil";
-import { auth } from "../../firebaseConfig";
-import { isDrawerOpenState } from "../../atom/atom";
+import React, { Fragment } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Dialog, Transition } from '@headlessui/react';
+import { useRecoilState } from 'recoil';
+import { auth } from '../../firebaseConfig';
+import { isDrawerOpenState } from '../../atom/atom';
 export const Drawer = () => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isDrawerOpenState);
   const listData = [
-    { name: "社会情報学部", to: "/product" },
-    { name: "経営学部", to: "/product" },
-    { name: "史学部", to: "/product" },
-    { name: "経済学部", to: "/product" },
-    { name: "法学部", to: "/product" },
-    { name: "文学部", to: "/product" },
+    { name: '社会情報学部', to: '/facultyId/school-of-social-information' },
+    { name: '経営学部', to: '/facultyId/school-of-business-administration' },
+    { name: '史学部', to: '/facultyId/school-of-history' },
+    { name: '経済学部', to: '/facultyId/school-of-economics' },
+    { name: '法学部', to: '/facultyId/school-of-law' },
+    { name: '文学部', to: '/facultyId/school-of-literature' },
   ];
 
   const handleLogout = () => {
     setIsDrawerOpen(false);
     auth.signOut();
-    navigate("/login");
+    navigate('/login');
   };
   const handleHome = () => {
     setIsDrawerOpen(false);
-    navigate("/");
+    navigate('/');
   };
   const handleLink = (to: string) => {
     setIsDrawerOpen(false);
@@ -80,10 +80,9 @@ export const Drawer = () => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <polyline points="5 12 3 12 12 3 21 12 19 12" />{" "}
-                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />{" "}
+                    {' '}
+                    <path stroke="none" d="M0 0h24v24H0z" /> <polyline points="5 12 3 12 12 3 21 12 19 12" />{' '}
+                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />{' '}
                     <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                   </svg>
                   <span className="mt-0.5">ホーム</span>
@@ -108,13 +107,10 @@ export const Drawer = () => {
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     >
-                      {" "}
-                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                      <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />{" "}
-                      <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />{" "}
-                      <line x1="3" y1="6" x2="3" y2="19" />{" "}
-                      <line x1="12" y1="6" x2="12" y2="19" />{" "}
-                      <line x1="21" y1="6" x2="21" y2="19" />
+                      {' '}
+                      <path stroke="none" d="M0 0h24v24H0z" /> <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />{' '}
+                      <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /> <line x1="3" y1="6" x2="3" y2="19" />{' '}
+                      <line x1="12" y1="6" x2="12" y2="19" /> <line x1="21" y1="6" x2="21" y2="19" />
                     </svg>
                     <span className="mt-0.5">{value.name}</span>
                   </div>
@@ -138,9 +134,9 @@ export const Drawer = () => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />{" "}
+                    {' '}
+                    <path stroke="none" d="M0 0h24v24H0z" />{' '}
+                    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />{' '}
                     <path d="M7 12h14l-3 -3m0 6l3 -3" />
                   </svg>
                   <span className="mt-0.5">ログアウト</span>
