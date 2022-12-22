@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useModalState } from "../../hooks/useModalState";
-import { Drawer } from "./Drawer";
-import { MenuIcon } from "../ui/icon/MenuIcon";
-import { SearchIcon } from "../ui/icon/SearchIcon";
-import { isDrawerOpenState, searchFormState } from "../../atom/atom";
-import { Modal } from "../ui/modal/Modal";
+import { Link } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useModalState } from '../../hooks/useModalState';
+import { Drawer } from './Drawer';
+import { MenuIcon } from '../ui/icon/MenuIcon';
+import { SearchIcon } from '../ui/icon/SearchIcon';
+import { isDrawerOpenState, searchFormState } from '../../recoil/atom/atom';
+import { Modal } from '../ui/modal/Modal';
 
 export const Header = () => {
   const { isOpen, closeModal, openModal, setIsOpen } = useModalState();
@@ -27,10 +27,7 @@ export const Header = () => {
                 <MenuIcon />
               </div>
               <Drawer />
-              <Link
-                to={"/"}
-                className="pb-1 ml-3 text-xl font-bold text-center text-white hover:text-gray-200"
-              >
+              <Link to={'/'} className="pb-1 ml-3 text-xl font-bold text-center text-white hover:text-gray-200">
                 classes
               </Link>
             </div>
@@ -40,12 +37,7 @@ export const Header = () => {
             ) : ( */}
             <div className="flex items-center gap-4">
               <div>
-                <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                  closeModal={closeModal}
-                  openModal={openModal}
-                />
+                <Modal isOpen={isOpen} setIsOpen={setIsOpen} closeModal={closeModal} openModal={openModal} />
               </div>
               {/* <Modal /> */}
               <div className="flex items-center justify-between ">

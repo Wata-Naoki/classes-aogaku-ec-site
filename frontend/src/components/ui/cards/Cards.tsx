@@ -1,13 +1,15 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartState, searchFormState } from '../../../atom/atom';
+import { useRecoilValue } from 'recoil';
+import { searchFormState } from '../../../recoil/atom/atom';
 import { usePagination } from '../../../hooks/usePagination';
-import { products } from '../../../productData/productData';
 import { Card } from '../card/Card';
 import { Pagination } from '../pagination/Pagination';
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
+import { useEffect } from 'react';
 
 export const Cards = ({ products }: any) => {
-  const [cartItems, setCartItems] =
-    useRecoilState<{ id: string; title: string; price: number; image: string }[]>(cartState);
+  // const [cartItems, setCartItems] =
+  //   useRecoilState<{ id: string; title: string; price: number; image: string }[]>(cartState);
+  const { value, setValue } = useLocalStorage();
   const searchState = useRecoilValue(searchFormState);
 
   const filterData = products.data.filter((item: any) => {
@@ -19,8 +21,8 @@ export const Cards = ({ products }: any) => {
 
   const handleCartItems = (product: any) => {
     // cartItemsにproductがなければ追加
-    if (!cartItems.find((item) => item.id === product.id)) {
-      setCartItems((prev) => [
+    if (!value.find((item: any) => item.id === product.id)) {
+      setValue((prev: any) => [
         ...prev,
         {
           id: product.id,
@@ -31,6 +33,10 @@ export const Cards = ({ products }: any) => {
       ]);
     }
   };
+  // 遷移時にページ位置を一番上にする
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   return (
     <>

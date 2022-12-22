@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { pageState } from '../../../atom/atom';
+import { pageState } from '../../../recoil/atom/atom';
 import { useCurrentSlider } from '../../../hooks/useCurrentSlider';
 import { SliderLayout } from '../../layouts/SliderLayout';
 import { LeftArrow } from './icons/LeftArrow';
