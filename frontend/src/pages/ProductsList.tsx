@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Cards } from '../components/ui/cards/Cards';
 import { facultyData } from '../Data/facultyData';

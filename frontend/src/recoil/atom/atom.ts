@@ -1,4 +1,5 @@
-import { atom } from 'recoil';
+import { atom, DefaultValue } from 'recoil';
+import { localStorageEffect } from '../localStorageEffect/localStorageEffect';
 
 export const searchFormState = atom({
   key: 'SearchFormAtom',
@@ -18,4 +19,10 @@ export const isDrawerOpenState = atom({
 export const pageState = atom({
   key: 'todoListState',
   default: 0,
+});
+
+export const localStorageState = atom<any | DefaultValue>({
+  key: 'key',
+  default: [{ id: '', title: '', price: 0, image: '' }],
+  effects_UNSTABLE: [localStorageEffect('localStorage_key')],
 });

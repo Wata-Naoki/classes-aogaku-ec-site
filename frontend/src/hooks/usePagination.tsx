@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const DEFAULT_TAKE = 6;
-const QUERY_PARAM_NAME = "_p";
+const QUERY_PARAM_NAME = '_p';
 
 type Props = {
   totalCount: number;
@@ -18,9 +18,7 @@ export const usePagination = ({ totalCount, take = DEFAULT_TAKE }: Props) => {
   const search = useLocation().search;
   const navigate = useNavigate();
   const urlPageNumber = new URLSearchParams(search).get(QUERY_PARAM_NAME);
-  const [currentPage, setCurrentPage] = React.useState(
-    Number(urlPageNumber) || 1
-  );
+  const [currentPage, setCurrentPage] = React.useState(Number(urlPageNumber) || 1);
 
   const totalPage = totalCount === 0 ? 0 : Math.ceil(totalCount / take);
   const hasNextPage = currentPage < totalPage;

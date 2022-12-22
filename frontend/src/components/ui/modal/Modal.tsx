@@ -1,37 +1,27 @@
-import React, { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { PaymentLoading } from "../../loading/PaymentLoading";
-import { useCheckout } from "../../../hooks/useCheckout";
-import { cartState } from "../../../atom/atom";
-import { Cart } from "../cart/Cart";
+import React, { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { PaymentLoading } from '../../loading/PaymentLoading';
+import { useCheckout } from '../../../hooks/useCheckout';
+import { Cart } from '../cart/Cart';
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
 
-export const Modal = ({
-  blogTitle,
-  isOpen,
-  setIsOpen,
-  closeModal,
-  openModal,
-}: any) => {
+export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: any) => {
   const { handleCheckout } = useCheckout();
-  const [cartToState, setCartToState] = useRecoilState(cartState);
+  const { value, setValue } = useLocalStorage();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleRemove = (id: string) => {
-    const newCart = cartToState.filter((item) => item.id !== id);
-    setCartToState(newCart);
+    const newCart = value.filter((item: any) => item.id !== id);
+    setValue(newCart);
   };
   return (
     <>
-      <div
-        className="flex items-center justify-center mt-0.5 cursor-pointer"
-        onClick={openModal}
-      >
+      <div className="flex items-center justify-center mt-0.5 cursor-pointer" onClick={openModal}>
         <Cart />
-        {cartToState.length >= 2 ? (
+        {value.length >= 2 ? (
           // まん丸にする。中の数字を中央に表示する。
           <div className="flex items-center justify-center w-5 h-5 mb-2 bg-white rounded-full">
-            <div className="mr-0 ">{cartToState.length - 1}</div>
+            <div className="mr-0 ">{value.length - 1}</div>
           </div>
         ) : (
           <div></div>
@@ -67,45 +57,32 @@ export const Modal = ({
                   <div className="flex flex-col items-center justify-center gap-x-2 gap-y-6">
                     <p className="text-sm text-gray-500">カート内の商品</p>
 
-                    {cartToState
+                    {value
                       .filter((item: any) => item.price > 0)
-                      .map((item: any, index) => (
-                        <div className="flex items-center justify-between w-full pl-24">
-                          <div className="flex items-center justify-between w-full gap-x-9">
-                            <div className="flex items-center justify-start w-full gap-x-9">
-                              <img
-                                src={item.image}
-                                alt="item"
-                                className="w-16 h-16"
-                              />
-                              <div className="flex flex-col items-start justify-center gap-1">
-                                <p className="text-sm text-gray-500">
-                                  {item.title}
-                                </p>
-                                <p className="text-sm text-gray-500">
-                                  {item.price}円
-                                </p>
-                              </div>
+                      .map((item: any, index: number) => (
+                        <div className="flex items-center justify-center w-full px-12 py-2">
+                          <div className="flex items-center justify-start w-full gap-x-9">
+                            <img src={item.image} alt="item" className="w-16 h-16" />
+                            <div className="flex flex-col items-start justify-center gap-1">
+                              <p className="text-sm text-gray-500">{item.title}</p>
+                              <p className="text-sm text-gray-500">{item.price}円</p>
                             </div>
+                          </div>
 
-                            <div
-                              className="cursor-pointer"
-                              onClick={() => handleRemove(item.id)}
+                          <div className="cursor-pointer" onClick={() => handleRemove(item.id)}>
+                            <svg
+                              className="w-6 h-6 text-gray-500"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
                             >
-                              <svg
-                                className="w-6 h-6 text-gray-500"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </div>
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
                           </div>
                         </div>
                       ))}
@@ -126,7 +103,7 @@ export const Modal = ({
                         setIsProcessing(true);
                         handleCheckout();
                       }}
-                      disabled={cartToState.length <= 1}
+                      disabled={value.length <= 1}
                     >
                       {isProcessing ? (
                         <div>

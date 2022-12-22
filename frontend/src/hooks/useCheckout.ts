@@ -1,20 +1,22 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { cartState } from "../atom/atom";
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { cartState } from '../recoil/atom/atom';
+import { useLocalStorage } from './useLocalStorage';
 
 export const useCheckout = () => {
-  const cartProducts = useRecoilValue(cartState);
+  // const cartProducts = useRecoilValue(cartState);
+  const { value } = useLocalStorage();
   const handleCheckout = async () => {
-    const response = await fetch("http://localhost:8080/checkout", {
-      method: "POST",
+    const response = await fetch('http://localhost:8080/checkout', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         // items: [{ id: cartProducts.id, quantity: 1 }],
-        items: cartProducts
+        items: value
           .filter((item: any) => item.price > 0)
-          .map((product) => ({
+          .map((product: any) => ({
             id: product.id,
             quantity: 1,
           })),

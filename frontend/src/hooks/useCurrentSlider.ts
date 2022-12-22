@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { pageState } from '../atom/atom';
+import { pageState } from '../recoil/atom/atom';
 import { sliderImgData } from '../components/ui/slider/sliderImgData/sliderImgData';
 
 export const useCurrentSlider = () => {
