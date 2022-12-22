@@ -5,9 +5,9 @@ import { useLocalStorage } from './useLocalStorage';
 
 export const useCheckout = () => {
   // const cartProducts = useRecoilValue(cartState);
-  const { value } = useLocalStorage();
+  const { value, removeValue } = useLocalStorage();
   const handleCheckout = async () => {
-    const response = await fetch('http://localhost:8080/checkout', {
+    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,6 +23,7 @@ export const useCheckout = () => {
       }),
     });
     const session = await response.json();
+    removeValue();
     if (session.url) {
       window.location.assign(session.url);
     }
