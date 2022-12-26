@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { QUERY_PARAM_SEARCH_NAME } from '../components/layouts/Header';
 import { Cards } from '../components/ui/cards/Cards';
-import { facultyData } from '../Data/facultyData';
+import { products } from '../productData/productData';
+import { searchFormState } from '../recoil/atom/atom';
 
-export const ProductsList = () => {
-  const { faculty } = useParams();
-  // findでfacultyIdと一致するものを探す
-  const products = facultyData.find((product) => product.facultyId === faculty);
+export const AllProductsSearchResult = () => {
+  const setSearchState = useSetRecoilState(searchFormState);
+
   // 現在のURLを取得する
   const currentURL = useLocation().search;
   // 検索した文字列を取得する(「?search=〇〇」の〇〇の部分)
@@ -16,15 +17,16 @@ export const ProductsList = () => {
   // 検索フォームに入力された値を取得する。多分URLのクエリパラメータを取得するためのフック
   const [searchParams] = useSearchParams();
   // 検索フォームに入力された値を取得する
-  useEffect(() => {
-    // setSearchState(urlSearchTextParams || '');
-    console.log(urlSearchTextParams);
-  }, [urlSearchTextParams]);
+  const search = searchParams.get('search');
 
+  useEffect(() => {
+    setSearchState(urlSearchTextParams || '');
+    console.log(search, urlSearchTextParams);
+  }, [urlSearchTextParams]);
   return (
     <div>
       <div>
-        <Cards products={products?.data} keyword={urlSearchTextParams} />
+        <Cards products={products} keyword={urlSearchTextParams} />
       </div>
     </div>
   );

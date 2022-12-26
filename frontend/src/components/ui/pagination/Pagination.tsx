@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import React from "react";
-import { Button } from "../button/Button";
+import clsx from 'clsx';
+import React from 'react';
+import { Button } from '../button/Button';
 
 type PaginationProps = {
   currentPage: number;
@@ -18,25 +18,13 @@ const Dots = () => <div className="flex items-center">...</div>;
 
 export const Pagination: React.FC<PaginationProps> = (props) => {
   const start = props.currentPage - range === 0 ? 2 : props.currentPage;
-  const showingNumbers = [start - range, start, start + range].filter(
-    (n) => n > 1 && n < props.totalPage
-  );
+  const showingNumbers = [start - range, start, start + range].filter((n) => n > 1 && n < props.totalPage);
   const showFirstDots = showingNumbers[0] > range + 1;
-  const showLastDots =
-    props.totalPage - range > showingNumbers[showingNumbers.length - 1];
+  const showLastDots = props.totalPage - range > showingNumbers[showingNumbers.length - 1];
 
-  const NumberButton = ({
-    page,
-    onClick,
-  }: {
-    page: number;
-    onClick: () => void;
-  }) => {
+  const NumberButton = ({ page, onClick }: { page: number; onClick: () => void }) => {
     return (
-      <Button
-        onClick={onClick}
-        variant={page === props.currentPage ? "primary" : "sub"}
-      >
+      <Button onClick={onClick} variant={page === props.currentPage ? 'primary' : 'sub'}>
         {page}
       </Button>
     );
@@ -54,30 +42,18 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
         </Button>
       )}
 
-      {
-        <NumberButton
-          onClick={() => props.onPageClick(1)}
-          page={1}
-        ></NumberButton>
-      }
+      {<NumberButton onClick={() => props.onPageClick(1)} page={1}></NumberButton>}
 
       {showFirstDots && <Dots />}
 
       {showingNumbers.map((num) => (
-        <NumberButton
-          onClick={() => props.onPageClick(num)}
-          page={num}
-          key={num}
-        />
+        <NumberButton onClick={() => props.onPageClick(num)} page={num} key={num} />
       ))}
 
       {showLastDots && <Dots />}
 
       {props.totalPage !== 1 && (
-        <NumberButton
-          onClick={() => props.onPageClick(props.totalPage)}
-          page={props.totalPage}
-        ></NumberButton>
+        <NumberButton onClick={() => props.onPageClick(props.totalPage)} page={props.totalPage}></NumberButton>
       )}
 
       {props.showNext && (

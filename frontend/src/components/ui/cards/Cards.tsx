@@ -6,17 +6,18 @@ import { Pagination } from '../pagination/Pagination';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { useEffect } from 'react';
 
-export const Cards = ({ products }: any) => {
+export const Cards = ({ products, keyword }: any) => {
   // const [cartItems, setCartItems] =
   //   useRecoilState<{ id: string; title: string; price: number; image: string }[]>(cartState);
   const { value, setValue } = useLocalStorage();
   const searchState = useRecoilValue(searchFormState);
 
-  const filterData = products.data.filter((item: any) => {
-    return searchState === '' ? item : item.title.includes(searchState);
+  const filterData = products.filter((item: any) => {
+    return keyword ? item.title.includes(keyword) : item;
   });
   const { take, skip, totalPage, currentPage, goPage, goPrev, goNext, hasNextPage, hasPrevPage } = usePagination({
     totalCount: filterData?.length || 0,
+    keyword,
   });
 
   const handleCartItems = (product: any) => {
@@ -41,6 +42,11 @@ export const Cards = ({ products }: any) => {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-16 py-16">
+        {keyword && (
+          <div className="text-xl">
+            "{keyword}"の検索結果:{totalPage}件
+          </div>
+        )}
         <div className="flex flex-wrap lg:w-[1200px]  gap-16 px-10 place-content-center">
           {filterData?.slice(skip, skip + take).map((item: any, index: number) => (
             <div key={item.id}>

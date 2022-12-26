@@ -7,7 +7,7 @@ export const useCheckout = () => {
   // const cartProducts = useRecoilValue(cartState);
   const { value, removeValue } = useLocalStorage();
   const handleCheckout = async () => {
-    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout`, {
+    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout` || 'http://localhost:8080/checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
