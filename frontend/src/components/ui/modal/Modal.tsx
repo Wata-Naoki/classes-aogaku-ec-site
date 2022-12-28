@@ -21,7 +21,7 @@ export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: a
         {value.length >= 2 ? (
           // まん丸にする。中の数字を中央に表示する。
           <div className="flex items-center justify-center w-5 h-5 mb-2 bg-white rounded-full">
-            <div className="mr-0 ">{value.length - 1}</div>
+            <div className="mr-0 text-slate-500">{value.length - 1}</div>
           </div>
         ) : (
           <div></div>
