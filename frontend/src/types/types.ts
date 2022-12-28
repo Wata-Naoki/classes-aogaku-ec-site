@@ -7,14 +7,14 @@ export type Product = {
   urlData: string;
 };
 
-/* export interface CartItem {
-    id?: number | undefined
-    title?: string | undefined
-    price?: number | undefined
-    quantity: number
-    cost?: number | undefined
-  } */
-
 export type SearchFormType = {
   keyword: string;
 };
+
+//localStorageCartStateの型
+export type CartType = {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+}[];

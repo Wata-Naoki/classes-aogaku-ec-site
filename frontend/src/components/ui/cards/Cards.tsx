@@ -1,29 +1,29 @@
-import { useRecoilValue } from 'recoil';
-import { searchFormState } from '../../../recoil/atom/atom';
 import { usePagination } from '../../../hooks/usePagination';
 import { Card } from '../card/Card';
 import { Pagination } from '../pagination/Pagination';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { useEffect } from 'react';
+import { Product } from '../../../types/types';
 
-export const Cards = ({ products, keyword }: any) => {
-  // const [cartItems, setCartItems] =
-  //   useRecoilState<{ id: string; title: string; price: number; image: string }[]>(cartState);
+type Props = {
+  products: Product[] | undefined;
+  keyword: string | null;
+};
+
+export const Cards: React.FC<Props> = ({ products, keyword }) => {
   const { value, setValue } = useLocalStorage();
-  const searchState = useRecoilValue(searchFormState);
-
-  const filterData = products.filter((item: any) => {
+  const filterData = products?.filter((item: Product) => {
     return keyword ? item.title.includes(keyword) : item;
   });
   const { take, skip, totalPage, currentPage, goPage, goPrev, goNext, hasNextPage, hasPrevPage } = usePagination({
     totalCount: filterData?.length || 0,
-    keyword,
+    keyword: keyword || '',
   });
 
-  const handleCartItems = (product: any) => {
+  const handleCartItems = (product: Product) => {
     // cartItemsにproductがなければ追加
-    if (!value.find((item: any) => item.id === product.id)) {
-      setValue((prev: any) => [
+    if (!value.find((item: Product) => item.id === product.id)) {
+      setValue((prev: Product[]) => [
         ...prev,
         {
           id: product.id,
@@ -44,11 +44,11 @@ export const Cards = ({ products, keyword }: any) => {
       <div className="flex flex-col items-center justify-center gap-16 py-16">
         {keyword && (
           <div className="text-xl">
-            "{keyword}"の検索結果:{totalPage}件
+            "{keyword}"の検索結果:{filterData?.length}件
           </div>
         )}
         <div className="flex flex-wrap lg:w-[1200px]  gap-16 px-10 place-content-center">
-          {filterData?.slice(skip, skip + take).map((item: any, index: number) => (
+          {filterData?.slice(skip, skip + take).map((item: Product, index: number) => (
             <div key={item.id}>
               <Card
                 onCartClick={() => handleCartItems(item)}
