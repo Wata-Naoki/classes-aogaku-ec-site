@@ -99,14 +99,14 @@ export const Modal: React.FC<Props> = ({ isOpen, closeModal, openModal }) => {
                   <div className="flex justify-center mt-4 gap-x-4 ">
                     <button
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none ring-2 focus-visible:ring-blue-500 focus-visible:ring-4 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       キャンセル
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:cursor-not-allowed hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:cursor-not-allowed hover:bg-blue-200 ring-2 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setIsProcessing(true);
                         handleCheckout();

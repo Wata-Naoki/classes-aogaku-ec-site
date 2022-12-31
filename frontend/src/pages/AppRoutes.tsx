@@ -7,6 +7,7 @@ import { Login } from '../components/login/Login';
 import { ProductsList } from './ProductsList';
 import { AoyamaGakuinPage } from './AoyamaGakuinPage';
 import { AllProductsSearchResult } from './AllProductsSearchResult';
+import { SuccessUrlPage } from './SuccessUrlPage';
 
 export const AppRoutes = () => {
   const layout = (
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
                 {/* <Route path="/facultyId/:faculty" element={<ProductsList />} /> */}
                 <Route path="/all-products" element={<AllProductsSearchResult />} />
                 <Route path="/all-products-search-result" element={<AllProductsSearchResult />} />
+                <Route path="/success" element={<SuccessUrlPage />} />
               </Route>
             </Routes>
           </Router>
