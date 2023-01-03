@@ -6,7 +6,7 @@ export const useCheckout = () => {
   const { value, removeValue, setValue } = useLocalStorage();
 
   const handleCheckout = async () => {
-    // 'http://localhost:8080/checkout'は、ローカル用のURL
+    //const response = await fetch('http://localhost:8080/checkout', {
     const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout`, {
       method: 'POST',
       headers: {
@@ -23,7 +23,9 @@ export const useCheckout = () => {
       }),
     });
     const session = await response.json();
-    setValue(value.map((item: any) => (item.state ? item : { ...item, state: true })));
+    setValue(
+      value.filter((item: any) => item.id === '').map((item: any) => (item.state ? item : { ...item, state: true }))
+    );
 
     if (session.url) {
       window.location.assign(session.url);
