@@ -27,5 +27,5 @@ REACT_APP_URL=
 
 ## ローカルのエンドポイント
 ```bash
-'http://localhost:8080'
+http://localhost:8080
 ```
