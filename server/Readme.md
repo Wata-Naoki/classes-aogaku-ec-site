@@ -25,3 +25,7 @@ PORT=
 REACT_APP_URL=
 ```
 
+## ローカルのエンドポイント
+```bash
+'http://localhost:8080'
+```
