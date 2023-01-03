@@ -32,4 +32,4 @@ REACT_APP_FIREBASE_APP_ID=
 
 
 ## デプロイURL
-https://yumemi-frontend-population-chart.vercel.app/
+https://classes-aogaku-ec-site.vercel.app/
