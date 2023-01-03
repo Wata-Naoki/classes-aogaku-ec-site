@@ -4,14 +4,22 @@ import { PaymentLoading } from '../../loading/PaymentLoading';
 import { useCheckout } from '../../../hooks/useCheckout';
 import { Cart } from '../cart/Cart';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
+import { Product } from '../../../types/types';
 
-export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: any) => {
+type Props = {
+  blogTitle?: string;
+  isOpen: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: () => void;
+  openModal: () => void;
+};
+export const Modal: React.FC<Props> = ({ isOpen, closeModal, openModal }) => {
   const { handleCheckout } = useCheckout();
   const { value, setValue } = useLocalStorage();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleRemove = (id: string) => {
-    const newCart = value.filter((item: any) => item.id !== id);
+    const newCart = value.filter((item: Product) => item.id !== id);
     setValue(newCart);
   };
   return (
@@ -21,7 +29,7 @@ export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: a
         {value.length >= 2 ? (
           // まん丸にする。中の数字を中央に表示する。
           <div className="flex items-center justify-center w-5 h-5 mb-2 bg-white rounded-full">
-            <div className="mr-0 ">{value.length - 1}</div>
+            <div className="mr-0 text-slate-500">{value.length - 1}</div>
           </div>
         ) : (
           <div></div>
@@ -58,8 +66,8 @@ export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: a
                     <p className="text-sm text-gray-500">カート内の商品</p>
 
                     {value
-                      .filter((item: any) => item.price > 0)
-                      .map((item: any, index: number) => (
+                      .filter((item: Product) => item.price > 0)
+                      .map((item: Product, index: number) => (
                         <div className="flex items-center justify-center w-full px-12 py-2">
                           <div className="flex items-center justify-start w-full gap-x-9">
                             <img src={item.image} alt="item" className="w-16 h-16" />
@@ -91,14 +99,14 @@ export const Modal = ({ blogTitle, isOpen, setIsOpen, closeModal, openModal }: a
                   <div className="flex justify-center mt-4 gap-x-4 ">
                     <button
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none ring-2 focus-visible:ring-blue-500 focus-visible:ring-4 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       キャンセル
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:cursor-not-allowed hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:cursor-not-allowed hover:bg-blue-200 ring-2 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setIsProcessing(true);
                         handleCheckout();

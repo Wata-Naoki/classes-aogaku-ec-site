@@ -1,6 +1,4 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { pageState } from '../../../recoil/atom/atom';
 import { useCurrentSlider } from '../../../hooks/useCurrentSlider';
 import { SliderLayout } from '../../layouts/SliderLayout';
 import { LeftArrow } from './icons/LeftArrow';
@@ -8,8 +6,6 @@ import { RightArrow } from './icons/RightArrow';
 import { sliderImgData } from './sliderImgData/sliderImgData';
 
 export const Slider = () => {
-  // 10ページ目のつぎの画像を取得するために、pageStateを参照する
-  const currentPage = useRecoilValue(pageState);
   // 画像データを取得する
   const { current, nextSlide, prevSlide, specifiedSlide } = useCurrentSlider();
 

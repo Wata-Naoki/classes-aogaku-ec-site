@@ -13,7 +13,7 @@ export const Button: React.FC<ButtonProps> = ({ children, className, variant = '
     <button
       type="button"
       className={clsx(
-        'inline-flex min-w-max max-w-max items-center justify-center gap-2 rounded border transition focus:ring',
+        'inline-flex min-w-max max-w-max items-center justify-center gap-2 rounded border transition ',
         props.disabled && 'opacity-40',
         variant === 'primary' && 'bg-gray-400 hover:bg-gray-700 text-white border-gray-600',
         variant === 'sub' && 'text-gray-600 border-gray-600 hover:bg-gray-50 bg-white',

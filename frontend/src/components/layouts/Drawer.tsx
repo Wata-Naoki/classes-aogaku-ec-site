@@ -4,10 +4,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useRecoilState } from 'recoil';
 import { auth } from '../../firebaseConfig';
 import { isDrawerOpenState } from '../../recoil/atom/atom';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 export const Drawer = () => {
   const navigate = useNavigate();
-  const { removeValue } = useLocalStorage();
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isDrawerOpenState);
   const listData = [
     { name: '社会情報学部', to: '/facultyId/school-of-social-information' },

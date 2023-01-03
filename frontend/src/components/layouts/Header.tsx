@@ -1,16 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useModalState } from '../../hooks/useModalState';
 import { Drawer } from './Drawer';
 import { MenuIcon } from '../ui/icon/MenuIcon';
 import { SearchIcon } from '../ui/icon/SearchIcon';
-import { isDrawerOpenState, searchFormState } from '../../recoil/atom/atom';
+import { isDrawerOpenState } from '../../recoil/atom/atom';
 import { Modal } from '../ui/modal/Modal';
+import { useEffect, useState } from 'react';
+import { useSearch } from '../../hooks/useSearch';
+
+export const QUERY_PARAM_SEARCH_NAME = 'keyword';
 
 export const Header = () => {
   const { isOpen, closeModal, openModal, setIsOpen } = useModalState();
-  const setSearchState = useSetRecoilState(searchFormState);
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isDrawerOpenState);
+  // 検索フォームに入力された値を取得する
+  const [text, setText] = useState('');
+  // 検索ボタンを押したときの処理
+  const { handleSearch } = useSearch({ text, setText });
 
   return (
     <div>
@@ -41,13 +48,14 @@ export const Header = () => {
               </div>
               {/* <Modal /> */}
               <div className="flex items-center justify-between ">
-                <div className="absolute mb-0 ml-1.5">
+                <div className="absolute mb-0 ml-1.5 cursor-pointer" onClick={handleSearch}>
                   <SearchIcon />
                 </div>
                 <input
                   placeholder="Search…"
+                  value={text}
                   className="w-64 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md px-9 focus:outline-none focus:border-gray-300 focus:ring-1 focus:ring-gray-300"
-                  onChange={(e) => setSearchState(e.target.value)}
+                  onChange={(e) => setText(e.target.value)}
                 />
               </div>
             </div>

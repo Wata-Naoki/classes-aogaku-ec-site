@@ -1,21 +1,20 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebaseConfig";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../../firebaseConfig';
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
-    console.log(email.value, password.value);
     try {
       await auth.createUserWithEmailAndPassword(email.value, password.value);
-      navigate("/");
+      navigate('/');
     } catch (error: any) {
       switch (error.code) {
         default:
-          setError("既に登録済みのメールアドレスです。");
+          setError('既に登録済みのメールアドレスです。');
           break;
       }
     }
@@ -37,9 +36,7 @@ export const SignUp = () => {
 
           <form onSubmit={handleSubmit}>
             <div>
-              <div className="mt-2 text-sm text-center text-red-500 break-all w-80">
-                {error && error}
-              </div>
+              <div className="mt-2 text-sm text-center text-red-500 break-all w-80">{error && error}</div>
               <div className="text-sm text-gray-500">メールアドレス</div>
               <div className="my-1">
                 <input
@@ -63,17 +60,14 @@ export const SignUp = () => {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="px-4 py-2 my-4 text-sm font-medium text-white bg-blue-800 rounded w-80"
-              >
+              <button type="submit" className="px-4 py-2 my-4 text-sm font-medium text-white bg-blue-800 rounded w-80">
                 登録
               </button>
             </div>
           </form>
           <div>
             ログインは
-            <Link to={"/login"} className="text-blue-900 underline">
+            <Link to={'/login'} className="text-blue-900 underline">
               こちら
             </Link>
             から
