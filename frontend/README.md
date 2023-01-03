@@ -29,6 +29,10 @@ REACT_APP_FIREBASE_MESSAGE_SENDER_ID=
 REACT_APP_FIREBASE_APP_ID=
 ```
 
+## ローカルのURL
+```bash
+http://localhost:3000
+```
 
 
 ## デプロイURL
