@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useModalState } from '../../hooks/useModalState';
 import { Drawer } from './Drawer';
@@ -7,53 +7,17 @@ import { SearchIcon } from '../ui/icon/SearchIcon';
 import { isDrawerOpenState } from '../../recoil/atom/atom';
 import { Modal } from '../ui/modal/Modal';
 import { useEffect, useState } from 'react';
+import { useSearch } from '../../hooks/useSearch';
 
 export const QUERY_PARAM_SEARCH_NAME = 'keyword';
 
 export const Header = () => {
   const { isOpen, closeModal, openModal, setIsOpen } = useModalState();
-  const pathname = useLocation().pathname;
   const [isDrawerOpen, setIsDrawerOpen] = useRecoilState(isDrawerOpenState);
   // 検索フォームに入力された値を取得する
   const [text, setText] = useState('');
-  const navigate = useNavigate();
-  const { faculty } = useParams();
   // 検索ボタンを押したときの処理
-  // TODO: ↓ 処理が長いので関数に切り出すようにする
-  const handleSearch = () => {
-    // 検索ワードの空白を削除する
-
-    if (pathname === '/') {
-      if (text) {
-        // 検索ワードがある場合は検索ワードをクエリパラメータに追加する
-        navigate(`/all-products-search-result?${QUERY_PARAM_SEARCH_NAME}=${text.replace(/\s+/g, '')}`);
-        setText('');
-      } else {
-        // 検索ワードがない場合はクエリパラメータを削除する
-        navigate('/');
-      }
-    } else if (pathname === '/all-products-search-result') {
-      if (text) {
-        // 検索ワードがある場合は検索ワードをクエリパラメータに追加する
-        navigate(`?${QUERY_PARAM_SEARCH_NAME}=${text.replace(/\s+/g, '')}`);
-        setText('');
-      } else {
-        // 検索ワードがない場合はクエリパラメータを削除する
-        // TODO: 全学科の商品一覧を表示するページに遷移する
-        navigate('/');
-      }
-    } else {
-      if (text) {
-        // 検索ワードがある場合は検索ワードをクエリパラメータに追加する
-        navigate(`?${QUERY_PARAM_SEARCH_NAME}=${text.replace(/\s+/g, '')}`);
-        setText('');
-      } else {
-        // 検索ワードがない場合はクエリパラメータを削除する
-        navigate(`/facultyId/${faculty}`);
-      }
-    }
-  };
-  // TODO: ↑ 処理が長いので関数に切り出すようにする
+  const { handleSearch } = useSearch({ text, setText });
 
   return (
     <div>

@@ -35,7 +35,7 @@ export const Login = () => {
       await auth.signInWithPopup(provider);
       navigate('/');
     } catch (error: any) {
-      console.log(error);
+      alert(error);
       setError(error.message);
     }
   };

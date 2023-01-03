@@ -3,9 +3,11 @@ import { useLocalStorage } from './useLocalStorage';
 
 export const useCheckout = () => {
   // const cartProducts = useRecoilValue(cartState);
-  const { value, removeValue } = useLocalStorage();
+  const { value, removeValue, setValue } = useLocalStorage();
+
   const handleCheckout = async () => {
-    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout` || 'http://localhost:8080/checkout', {
+    // 'http://localhost:8080/checkout'は、ローカル用のURL
+    const response = await fetch(`${process.env.REACT_APP_ENDPOINT}/checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +23,8 @@ export const useCheckout = () => {
       }),
     });
     const session = await response.json();
-    removeValue();
+    setValue(value.map((item: any) => (item.state ? item : { ...item, state: true })));
+
     if (session.url) {
       window.location.assign(session.url);
     }
