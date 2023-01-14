@@ -5,8 +5,9 @@ import Confetti from 'react-confetti';
 import { products } from '../productData/productData';
 import { Card } from '../components/ui/card/Card';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-const PURCHASED_PRODUCTS_TOTAL_COUNT = 'productsLength';
+import { useDownload } from '../hooks/useDownload';
 
+const PURCHASED_PRODUCTS_TOTAL_COUNT = 'productsLength';
 export const SuccessUrlPage = () => {
   const { width, height } = useWindowSize();
   const { value, removeValue, setValue } = useLocalStorage();
@@ -29,6 +30,8 @@ export const SuccessUrlPage = () => {
     }, 10000);
   }, []);
 
+  const { handleDownload } = useDownload();
+
   return (
     <div className="flex flex-col items-center justify-center gap-16 py-16">
       {value[0].state && <Confetti width={width} height={height} recycle={false} />}
@@ -47,11 +50,11 @@ export const SuccessUrlPage = () => {
             purchasedItemsList.push(urlSearchTextParams);
             return (
               <div className="" key={i}>
-                <span className="text-center text-gray-100">{urlSearchTextParams}</span>
+                {/* <span className="text-center text-gray-100">{urlSearchTextParams}</span> */}
                 {product && (
-                  <a href={'https://drive.google.com/drive/folders/1wMkXfLRGI8bh0sYASS-5JZEQ2aJFS42A?usp=sharing'}>
+                  <button onClick={() => handleDownload(product.pdfUrl, product.title)}>
                     <Card id={product.id} title={product.title} image={product.image} />
-                  </a>
+                  </button>
                 )}
               </div>
             );

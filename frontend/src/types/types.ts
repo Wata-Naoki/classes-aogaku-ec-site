@@ -4,7 +4,7 @@ export type Product = {
   description: string;
   price: number;
   image: string;
-  urlData: string;
+  pdfUrl: string;
 };
 
 export type SearchFormType = {
