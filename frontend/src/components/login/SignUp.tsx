@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConfig';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const { setValue } = useLocalStorage();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
     try {
       await auth.createUserWithEmailAndPassword(email.value, password.value);
+      setValue([{ id: '', title: '', price: 0, image: '', email: email?.value, state: false }]);
       navigate('/');
     } catch (error: any) {
       switch (error.code) {

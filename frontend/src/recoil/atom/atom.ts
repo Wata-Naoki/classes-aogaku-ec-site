@@ -9,6 +9,6 @@ export const isDrawerOpenState = atom({
 
 export const localStorageCartState = atom<any | DefaultValue>({
   key: 'cartStateKey',
-  default: [{ id: '', title: '', price: 0, image: '', state: false }],
+  default: [{ id: '', title: '', price: 0, image: '', email: '', state: false }],
   effects_UNSTABLE: [localStorageEffect('localStorage_key')],
 });
