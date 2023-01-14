@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-require('./backend/node_modules/dotenv/lib/main').config({ debug: true });
+require('dotenv').config({ debug: true });
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 const app = express()
@@ -26,8 +26,10 @@ app.post('/checkout', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
+        // ローカル
         // success_url: `http://localhost:3000/success?${lineItemsParams}`,
         // cancel_url: 'http://localhost:3000',
+        // 本番
         success_url: process.env.REACT_APP_URL + `success?${lineItemsParams}` || 'http://localhost:3000',
         cancel_url: process.env.REACT_APP_URL || 'http://localhost:3000',
     })
