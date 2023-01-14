@@ -4,6 +4,7 @@ import { Pagination } from '../pagination/Pagination';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { useEffect } from 'react';
 import { Product } from '../../../types/types';
+import { useAuthContext } from '../../../context/AuthContext';
 
 type Props = {
   products: Product[] | undefined;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export const Cards: React.FC<Props> = ({ products, keyword }) => {
+  const { user } = useAuthContext();
   const { value, setValue } = useLocalStorage();
   const filterData = products?.filter((item: Product) => {
     return keyword ? item.title.includes(keyword) : item;
@@ -30,6 +32,7 @@ export const Cards: React.FC<Props> = ({ products, keyword }) => {
           title: product.title,
           price: product.price,
           image: product.image,
+          email: user?.email,
         },
       ]);
     }

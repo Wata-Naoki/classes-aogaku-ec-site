@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../firebaseConfig';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const { value, setValue } = useLocalStorage();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
+
     try {
       await auth.signInWithEmailAndPassword(email.value, password.value);
       navigate('/');
@@ -32,7 +35,16 @@ export const Login = () => {
 
   const handleLogin = async (event: any) => {
     try {
-      await auth.signInWithPopup(provider);
+      await auth.signInWithPopup(provider).then((result) => {
+        // 認証成功時、userプロパティに認証情報が含まれることがある
+        const user = result.user;
+        if (user !== null) {
+          // ユーザーが異なる場合は、カートの中身を削除
+          if (value[0].email !== user?.email) {
+            setValue([{ id: '', title: '', price: 0, image: '', email: user?.email, state: false }]);
+          }
+        }
+      });
       navigate('/');
     } catch (error: any) {
       alert(error);
