@@ -40,9 +40,7 @@ export const Login = () => {
         const user = result.user;
         if (user !== null) {
           // ユーザーが異なる場合は、カートの中身を削除
-          if (value[0].email !== user?.email) {
-            setValue([{ id: '', title: '', price: 0, image: '', email: user?.email, state: false }]);
-          }
+          setValue([{ id: '', title: '', price: 0, image: '', email: user?.email, state: false }]);
         }
       });
       navigate('/');

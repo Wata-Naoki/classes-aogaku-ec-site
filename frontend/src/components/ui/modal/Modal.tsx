@@ -65,35 +65,36 @@ export const Modal: React.FC<Props> = ({ isOpen, closeModal, openModal }) => {
                   <div className="flex flex-col items-center justify-center gap-x-2 gap-y-6">
                     <p className="text-sm text-gray-500">カート内の商品</p>
 
-                    {value
-                      .filter((item: Product) => item.price > 0)
-                      .map((item: Product, index: number) => (
-                        <div className="flex items-center justify-center w-full px-12 py-2">
-                          <div className="flex items-center justify-start w-full gap-x-9">
-                            <img src={item.image} alt="item" className="w-16 h-16" />
-                            <div className="flex flex-col items-start justify-center gap-1">
-                              <p className="text-sm text-gray-500">{item.title}</p>
-                              <p className="text-sm text-gray-500">{item.price}円</p>
+                    {value.length >= 2 &&
+                      value
+                        .filter((item: Product) => item.price > 0)
+                        .map((item: Product, index: number) => (
+                          <div className="flex items-center justify-center w-full px-12 py-2">
+                            <div className="flex items-center justify-start w-full gap-x-9">
+                              <img src={item.image} alt="item" className="w-16 h-16" />
+                              <div className="flex flex-col items-start justify-center gap-1">
+                                <p className="text-sm text-gray-500">{item.title}</p>
+                                <p className="text-sm text-gray-500">{item.price}円</p>
+                              </div>
+                            </div>
+
+                            <div className="cursor-pointer" onClick={() => handleRemove(item.id)}>
+                              <svg
+                                className="w-6 h-6 text-gray-500"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
                             </div>
                           </div>
-
-                          <div className="cursor-pointer" onClick={() => handleRemove(item.id)}>
-                            <svg
-                              className="w-6 h-6 text-gray-500"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
                   </div>
 
                   <div className="flex justify-center mt-4 gap-x-4 ">
