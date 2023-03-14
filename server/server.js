@@ -11,7 +11,6 @@ app.use(express.json())
 app.get('/', (req, res) => res.send('Hello World!'))
 app.post('/checkout', async (req, res) => {
     const items = req.body.items
-    console.log(items)
     let lineItemsParams = ''
     let lineItems = []
     items.forEach((item, index) => {
@@ -22,7 +21,6 @@ app.post('/checkout', async (req, res) => {
         lineItemsParams += `product${index}=${item.id}&`
     })
     lineItemsParams += `productsLength=${items.length}`
-    console.log(lineItemsParams)
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
