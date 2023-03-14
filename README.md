@@ -6,8 +6,8 @@
 
 ## 技術スタック
 #### フロントエンド：React/TypeScript/Tailwind CSS
-#### サーバー：express/Firebase
-#### その他：stripe API　
+#### サーバー：Express/Firebase
+#### その他：Stripe API　
 
 
 ## フロントエンド
