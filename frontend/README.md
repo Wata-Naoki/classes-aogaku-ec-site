@@ -33,7 +33,3 @@ REACT_APP_FIREBASE_APP_ID=
 ```bash
 http://localhost:3000
 ```
-
-
-## デプロイURL
-https://classes-aogaku-ec-site.vercel.app/
