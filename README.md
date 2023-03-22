@@ -3,7 +3,8 @@
 
 #### ▶ <a href="https://www.youtube.com/watch?v=3d-I2WtdP38" target="_blank" rel="noopener noreferrer">デモ動画 URL</a>
 #### ▶ <a href="https://classes-aogaku-ec-site.vercel.app/" target="_blank" rel="noopener noreferrer">デプロイ URL</a>
-
+サンプル用）　email：「sample1@gmail.com」,　pw：「sample1」
+＊Googleでのログインも可能です！
 
 ## 技術スタック
 #### フロントエンド：React/TypeScript/Tailwind CSS
